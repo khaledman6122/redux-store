@@ -9,7 +9,7 @@ export class Store {
     //index-signatures => key is a string and value is a any
   };
   constructor(reducers = {}, initialState = {}) {
-    this.state = initialState;
+    this.state = this.reduce(initialState, {}); //call reduce function rather than  equal to initialState directly
     this.reducers = reducers;
   }
   get value() {
