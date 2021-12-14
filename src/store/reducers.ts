@@ -1,11 +1,7 @@
 export const initialState = {
   loaded: false,
   loading: false,
-  data: [
-    {
-      todos: [{ label: "initial pizza", complete: false }],
-    },
-  ],
+  data: [{ label: "initial pizza", complete: false }],
 };
 export function reducer(
   state = initialState,
@@ -13,8 +9,8 @@ export function reducer(
 ) {
   switch (action.type) {
     case "ADD_TODO": {
-      const toto = action.payload; //coming as argument
-      const data = [...state.data, toto]; //merge state.data with comming data(todo)
+      const todo = action.payload; //coming as argument
+      const data = [...state.data, todo]; //merge state.data with comming data(todo)
       return {
         //merge whole state with very new data
         ...state,
@@ -22,4 +18,5 @@ export function reducer(
       };
     }
   }
+  return state;
 }
