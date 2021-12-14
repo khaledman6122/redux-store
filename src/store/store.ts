@@ -10,8 +10,8 @@ export class Store {
   };
   constructor(reducers = {}, initialState = {}) {
     this.subscribers = [];
-    this.state = this.reduce(initialState, {}); //call reduce function rather than  equal to initialState directly
     this.reducers = reducers;
+    this.state = this.reduce(initialState, {}); //call reduce function rather than  equal to initialState directly
   }
   get value() {
     return this.state;
@@ -19,6 +19,11 @@ export class Store {
   subscribe(fn) {
     this.subscribers = [...this.subscribers, fn];
     this.notify(); //to notify subscribers
+
+    return () => {
+      //annonymous function to unsubscribe and stop memory leaks
+      this.subscribers = this.subscribers.filter((sub) => sub !== fn);
+    };
   }
   private notify() {
     this.subscribers.forEach((fn) => fn(this.value));
@@ -53,6 +58,7 @@ export class Store {
       //we call it as it is a refernce and we need to return value from it
       //then pass to is each state related to this reducer  NOT the whole state because we dont need each reducer to access each state
     }
+    console.log(newState);
     return newState;
   }
 }

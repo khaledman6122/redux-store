@@ -36,9 +36,13 @@ button.addEventListener(
   false
 );
 
-// store.subscribe((state) => {
-//   renderTodos(state.todos.data);
-// });
+//to stop memory leak =>app.ts subscribe(){ annonymous function}
+const unsubscribe = store.subscribe((state) => {
+  renderTodos(state.todos.data);
+});
+
+destroy.addEventListener("click", unsubscribe, false);
+//we can log state but dom will not change
 
 todoList.addEventListener("click", function (event) {
   const target = event.target as HTMLButtonElement;
@@ -47,6 +51,8 @@ todoList.addEventListener("click", function (event) {
   }
 });
 
-store.subscribe((state) => {
-  console.log("STATE", state);
-});
+store.subscribe((state) => console.log("STATE", state));
+//احا
+// store.subscribe((state) => {
+//   console.log("STATE", state);
+// });
