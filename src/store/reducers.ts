@@ -23,7 +23,11 @@ export function reducer(
       const data = state.data.filter(
         (todo) => todo.label !== action.payload.label
       );
-      console.log(action.payload, "ASDAASDASDASDASD");
+      return {
+        //merge whole state with very new data
+        ...state,
+        data: data,
+      };
     }
   }
   return state;
